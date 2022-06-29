@@ -12,14 +12,16 @@ export default function Products(props) {
   useEffect(() => {
     setProducts(
       [
-        {"description":"500g apples","id":1,"image":"../public/img/product-app.jpeg","name":"Apple","price":5,"price_id":"price_1HuavSGuhXEITAut56IgndJf"},
-        {"description":"500g avocado","id":2,"image":"../public/img/product-avocado.jpeg","name":"Avocado","price":12,"price_id":"price_1HxVriGuhXEITAutt5KUKo2V"},
-        {"description":"500g bananas","id":3,"image":"../public/img/product-banana.jpeg","name":"Banana","price":4,"price_id":"price_1HxW4YGuhXEITAutgcWugXH7"},
-        {"description":"500g hami","id":4,"image":"../public/img/product-hami.jpeg","name":"Hami","price":2.5,"price_id":"price_1HxW59GuhXEITAutCwoYZoOJ"},
-        {"description":"500g kiwi","id":4,"image":"../public/img/product-kiwi.jpeg","name":"Kiwi","price":3.25,"price_id":"price_1HxW59GuhXEITAutCwoYZoOJ"},
-        {"description":"500g lemon","id":4,"image":"../public/img/product-lemon.jpeg","name":"Lemon","price":5.75,"price_id":"price_1HxW59GuhXEITAutCwoYZoOJ"},
-        {"description":"500g litchi","id":4,"image":"../public/img/product-litchi.jpeg","name":"Litchi","price":6.5,"price_id":"price_1HxW59GuhXEITAutCwoYZoOJ"},
-        {"description":"500g strawberry","id":4,"image":"../public/img/product-strawberry.jpeg","name":"Strawberry","price":8,"price_id":"price_1HxW59GuhXEITAutCwoYZoOJ"}])
+        {"description":"500g apples","id":1,"image":"./img/product-apple.jpeg","name":"Apple","price":5,"price_id":"price_1LFtz6G9aZjj7j0DnFDkjwFs"},
+        {"description":"500g avocado","id":2,"image":"./img/product-avocado.jpeg","name":"Avocado","price":12,"price_id":"price_1LFtzgG9aZjj7j0DyPP8QmJS"},
+        {"description":"500g bananas","id":3,"image":"./img/product-banana.jpeg","name":"Banana","price":4,"price_id":"price_1LFtzzG9aZjj7j0D9jgzFD2W"},
+        {"description":"500g hami","id":4,"image":"./img/product-hami.jpeg","name":"Hami","price":2.5,"price_id":"price_1LFu0GG9aZjj7j0DLpZb0cyL"},
+        {"description":"500g kiwi","id":5,"image":"./img/product-kiwi.jpeg","name":"Kiwi","price":3.25,"price_id":"price_1LFu0XG9aZjj7j0DbCNVKcQn"},
+        {"description":"500g lemon","id":6,"image":"./img/product-lemon.jpeg","name":"Lemon","price":5.75,"price_id":"price_1LFu0sG9aZjj7j0Dc71pmmjX"},
+        {"description":"500g litchi","id":7,"image":"./img/product-litchi.jpeg","name":"Litchi","price":6.5,"price_id":"price_1LFu1CG9aZjj7j0DXeJxRzKW"},
+        {"description":"500g strawberry","id":8,"image":"./img/product-strawberry.jpeg","name":"Strawberry","price":8,"price_id":"price_1LFu1RG9aZjj7j0DViAvMzb4"}
+      ]
+    ); 
   }, []);
 
   return (
@@ -27,7 +29,7 @@ export default function Products(props) {
       <h1>Products</h1>
       <p>Take a look at our products</p>
       <div className="products-grid">
-        {loading && <Loader />}
+        {/* {loading && <Loader />} */}
         {products.map((product) => {
           return (
             <Product
