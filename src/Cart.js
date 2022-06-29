@@ -4,7 +4,7 @@ import Input from "./Input.js";
 import Button from "./Button.js";
 
 // TODO: Replace with your own publishable key
-const stripeLoadedPromise = loadStripe("PK_REPLACE_WITH_YOUR_PUBLISHABLE_KEY");
+const stripeLoadedPromise = loadStripe("pk_test_51LFsbrG9aZjj7j0DyzGsjEShHXfbtsOtg6lXj9lv5xIfOru7waCmlxszdd15DVydvQyu0V4OJV6hvHcKT3peaxjI00hQCPGeDK");
 
 export default function Cart({ cart }) {
   const totalPrice = cart.reduce(
@@ -26,8 +26,8 @@ export default function Cart({ cart }) {
         .redirectToCheckout({
           lineItems: lineItems,
           mode: "payment",
-          successUrl: "https://superm.react-tutorial.app/",
-          cancelUrl: "https://superm.react-tutorial.app/",
+          successUrl: "https://neon-kringle-717d15.netlify.app",
+          cancelUrl: "https://neon-kringle-717d15.netlify.app",
           customerEmail: email,
         })
         .then((response) => {
