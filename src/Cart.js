@@ -26,8 +26,8 @@ export default function Cart({ cart }) {
         .redirectToCheckout({
           lineItems: lineItems,
           mode: "payment",
-          successUrl: "https://neon-kringle-717d15.netlify.app",
-          cancelUrl: "https://neon-kringle-717d15.netlify.app",
+          successUrl: "https://neon-kringle-717d15.netlify.app/",
+          cancelUrl: "https://neon-kringle-717d15.netlify.app/",
           customerEmail: email,
         })
         .then((response) => {
