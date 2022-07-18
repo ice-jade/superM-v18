@@ -4,7 +4,7 @@ import useFetch from "./useFetch.js";
 import Loader from "./Loader.js";
 import data from "./data.js";
 
-export default function Products(props) {
+export default function Products() {
   const [products, setProducts] = useState([]);
   // const { get, loading } = useFetch(
   //   "https://react-tutorial-demo.firebaseio.com/"
@@ -26,10 +26,7 @@ export default function Products(props) {
           return (
             <Product
               key={product.id}
-              details={product}
-              cart={props.cart}
-              onProductAdd={props.onProductAdd}
-              onProductDelete={props.onProductDelete}
+              product={product}
             />
           );
         })}
