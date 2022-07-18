@@ -2,16 +2,16 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import Input from "./Input.js";
 import Button from "./Button.js";
-import { useSelector } from "react-redux";
-import { cartValueSelector } from "./redux/cart_slice.js";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct, removeProduct, clearProduct, cartValueSelector } from "./redux/cart_slice.js";
 
 const stripeLoadedPromise = loadStripe("pk_test_51LFsbrG9aZjj7j0DyzGsjEShHXfbtsOtg6lXj9lv5xIfOru7waCmlxszdd15DVydvQyu0V4OJV6hvHcKT3peaxjI00hQCPGeDK");
 
 export default function Cart() {
+  const [email, setEmail] = useState("");
   const cart = useSelector(state => state.cart);
   const totalPrice = useSelector(cartValueSelector);
-
-  const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -20,24 +20,29 @@ export default function Cart() {
       return { price: product.price_id, quantity: product.quantity };
     });
 
-    stripeLoadedPromise.then((stripe) => {
-      stripe
-        .redirectToCheckout({
-          lineItems: lineItems,
-          mode: "payment",
-          successUrl: "https://neon-kringle-717d15.netlify.app/",
-          cancelUrl: "https://neon-kringle-717d15.netlify.app/",
-          customerEmail: email,
-        })
-        .then((response) => {
-          // this will only log if the redirect did not work
-          console.log(response.error);
-        })
-        .catch((error) => {
-          // wrong API key? you will see the error message here
-          console.log(error);
-        });
-    });
+    stripeLoadedPromise
+      .then((stripe) => {
+        stripe
+          .redirectToCheckout({
+            lineItems: lineItems,
+            mode: "payment",
+            successUrl: "https://neon-kringle-717d15.netlify.app/",
+            cancelUrl: "https://neon-kringle-717d15.netlify.app/",
+            customerEmail: email,
+          })
+          .then((response) => {
+            // this will only log if the redirect did not work
+            dispatch(clearProduct());
+            console.log(response.error);
+          })
+          .catch((error) => {
+            // wrong API key? you will see the error message here
+            console.log(error);
+          });
+      })
+      // .then(
+      //   () => dispatch(clearProduct())
+      // )
   }
 
   return (
@@ -55,9 +60,9 @@ export default function Cart() {
                   <th width="25%" className="th-product">
                     Product
                   </th>
-                  <th width="20%">Unit price</th>
-                  <th width="10%">Quanity</th>
-                  <th width="25%">Total</th>
+                  <th width="15%">Unit price</th>
+                  <th width="20%">Quanity</th>
+                  <th width="20%">Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,6 +70,7 @@ export default function Cart() {
                   return (
                     <tr key={product.id}>
                       <td>
+                        <Button round onButtonClick={() => dispatch(removeProduct(product))}>-</Button>
                         <img
                           src={product.image}
                           width="30"
@@ -74,7 +80,10 @@ export default function Cart() {
                         {product.name}
                       </td>
                       <td>${product.price}</td>
-                      <td>{product.quantity}</td>
+                      <td>
+                        {product.quantity}
+                        <Button round onButtonClick={() => dispatch(addProduct(product))}>+</Button>
+                      </td>
                       <td>
                         <strong>${product.price * product.quantity}</strong>
                       </td>
@@ -95,10 +104,6 @@ export default function Cart() {
                 Enter your email and then click on pay and your products will be
                 delivered to you on the same day!
                 <br />
-                <em>
-                  Enter your own Stripe Publishable Key in Cart.js for the
-                  checkout to work
-                </em>
               </p>
               <Input
                 placeholder="Email"

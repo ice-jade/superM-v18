@@ -29,6 +29,10 @@ const cartSlice = createSlice({
         state.cart.splice(index, 1); // toolkit引入了immer，支持mutable写法
       }
     },
+
+    clearProduct: (state, action) => {
+      state.cart = [];
+    }
   }
 });
 
@@ -41,6 +45,6 @@ const cartValueSelector = (state) => {
 };
 
 const cartReducer = cartSlice.reducer;
-const { addProduct, removeProduct } = cartSlice.actions;
+const { addProduct, removeProduct, clearProduct } = cartSlice.actions;
 
-export { cartReducer, addProduct, removeProduct, cartCountSelector, cartValueSelector };
+export { cartReducer, addProduct, removeProduct, clearProduct, cartCountSelector, cartValueSelector };
