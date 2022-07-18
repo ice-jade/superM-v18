@@ -6,27 +6,27 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
-import useFetch from "./useFetch.js";
+// import useFetch from "./useFetch.js";
 import ProductDetailInfo from "./ProductDetailInfo.js";
 import ProductDetailNutrition from "./ProductDetailNutrition.js";
 import ProductDetailStorage from "./ProductDetailStorage.js";
+import data from "./data.js";
 
 export default function ProductDetails(props) {
-  const [product, setProduct] = useState({});
-  const { get } = useFetch("https://react-tutorial-demo.firebaseio.com/");
+  // const { get } = useFetch("https://react-tutorial-demo.firebaseio.com/");
+  const [product, setProduct] = useState([]);
   const params = useParams();
   const match = useRouteMatch();
 
   useEffect(() => {
-    get(`productinfo/id${params.id}.json`)
-      .then((data) => {
-        setProduct(data);
-      })
-      .catch((error) => console.log("Could not load product details", error));
-  }, []);
+    setProduct(
+      data.productInfo[params.id - 1]
+    )
+}, []);
 
   return (
     <div className="product-details-layout">
+      {/* <img src={product.image} alt=""></img> */}
       <div>
         <h2>{product.name}</h2>
         <img
